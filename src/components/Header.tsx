@@ -9,12 +9,14 @@ export default function Header({ links }: { links: NavLink[] }) {
   return (
     <header
       className="
-        bg-[#ebebeb]              /* background color */
-        flex flex-wrap sm:flex-nowrap /* stack on mobile, row on larger screens */
+        flex flex-wrap sm:flex-nowrap
         items-center
-        gap-8                     /* space between logo/links */
-        p-6                       /* padding all sides (~24px) */
-        border-b-2 border-[#4b4b4b] /* bottom border */
+        gap-8                
+        p-8                    
+        sticky top-0 left-0 w-full 
+         z-50 backdrop-blur-sm
+        bg-[#ebebeb]/40
+        border-2-[#000000]
       "
     >
       <img src="/logos/full.svg" alt="Print Impact" className="h-10 w-auto" />
