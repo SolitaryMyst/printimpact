@@ -2,6 +2,7 @@
 services:
   web:
     build: .
+    env_file: .env.local
     image: new-printimpact-web
     environment: [ "PORT=3000" ]
     expose: [ "3000" ]

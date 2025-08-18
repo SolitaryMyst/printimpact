@@ -11,17 +11,16 @@ export default function Header({ links }: { links: NavLink[] }) {
       className="
         flex flex-wrap sm:flex-nowrap
         items-center
-        gap-8                
-        p-8                    
-        sticky top-0 left-0 w-full 
-         z-50 backdrop-blur-sm
-        bg-[#ebebeb]/40
-        border-2-[#000000]
-      "
+        gap-8
+        p-6
+        sticky top-0 left-0 w-full
+        z-50 backdrop-blur-sm
+        bg-[#333333]
+      "// border-b-3 border-[#0e7dc2]
     >
-      <img src="/logos/full.svg" alt="Print Impact" className="h-10 w-auto" />
+      <img src="/logos/wrect.svg" alt="Print Impact" className="h-13 w-auto" />
 
-      <nav className="flex flex-wrap gap-4">
+      <nav className="flex flex-wrap gap-5">
         {links.map((l) => {
           const active = pathname === l.href || pathname.startsWith(l.href + '/');
           return (
@@ -29,11 +28,16 @@ export default function Header({ links }: { links: NavLink[] }) {
               key={l.href}
               href={l.href}
               className={`
-                px-4 py-1
+                px-4 py-0
                 rounded-full
-                border-2 border-transparent
+                border-2
                 text-lg
-                ${active ? 'border-[#0e7dc2] text-[#0e7dc2]' : 'hover:border-[#0e7dc2] hover:text-[#0e7dc2]'}
+               
+              
+                ${active
+                  ? 'border-[#0e7dc2] bg-[#ffffff] text-[#333333]'
+                  : 'border-white text-white hover:border-[#0e7dc2] bg-[#333333] hover:text-[#333333]  hover:bg-[#ffffff]'
+                }
               `}
             >
               {l.label}
@@ -41,6 +45,15 @@ export default function Header({ links }: { links: NavLink[] }) {
           );
         })}
       </nav>
+      <div className="ml-auto px-20">
+        <Link
+          href="/contact"
+          className="px-6 py-1 my-[5rem] rounded-full border-2 text-white bg-[#0e7dc2] text-3xl border-white"
+        >
+          Contact
+        </Link>
+      </div>
+
     </header>
   );
 }
