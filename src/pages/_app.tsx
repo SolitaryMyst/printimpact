@@ -5,6 +5,7 @@ import "@/styles/globals.css";
 import { Red_Hat_Display } from "next/font/google";
 import Header from "@/components/Header";
 import PageHeader from "@/components/PageHeader";
+import type { PageHeaderConfig } from "@/types/page";
 
 const redHat = Red_Hat_Display({
   subsets: ["latin"],
@@ -12,31 +13,35 @@ const redHat = Red_Hat_Display({
 });
 
 const navLinks = [
-  { href: "/", label: "About" },
-  { href: "/signage", label: "Signage" },
-  { href: "/stationery", label: "Stationery" },
-  { href: "/medical", label: "Medical" },
+  { href: "/printing-perth", label: "Print" },
+  { href: "/design-perth", label: "Design" },
+  { href: "/signage-perth", label: "Signage" },
+  { href: "/corporate-print-perth", label: "Corporate" },
+  { href: "/medical-supply-perth", label: "Medical" },
   // { href: "/contact", label: "Contact" },
 ];
 
 export default function App({ Component, pageProps }: AppProps) {
+  // Define the augmentation here so it can safely reference Component’s type.
   type NextPageWithLayout = typeof Component & {
     getLayout?: (page: ReactNode) => ReactNode;
-    pageHeader?: { title?: string; items?: string[] };
+    pageHeader?: PageHeaderConfig;
   };
 
   const Page = Component as NextPageWithLayout;
 
   const getLayout =
-    Page.getLayout ||
-    ((page: ReactNode) => (
-      <div className={redHat.className}>
-        <Header links={navLinks} />
-        {/* Page-specific header */}
-        {Page.pageHeader && <PageHeader {...Page.pageHeader} />}
-        <main className="w-full px-7">{page}</main>
-      </div>
-    ));
+  Page.getLayout ??
+  ((page: ReactNode) => (
+    <div
+      className={redHat.className}
+      style={{ letterSpacing: "0.0250em", fontKerning: "normal" }} // kerning at browser default
+    >
+      <Header links={navLinks} />
+      {Page.pageHeader ? <PageHeader {...Page.pageHeader} /> : null}
+      <main className="w-full px-7">{page}</main>
+    </div>
+  ));
 
-  return getLayout(<Component {...pageProps} />);
+return getLayout(<Component {...pageProps} />);
 }

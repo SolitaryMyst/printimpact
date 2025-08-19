@@ -1,42 +1,62 @@
-import Link from 'next/link';
-import { useRouter } from 'next/router';
+import Link from "next/link";
+import { useRouter } from "next/router";
 
 type NavLink = { href: string; label: string };
 
+/**
+ * Behavior:
+ * - md and up: single inline row, no wrap, compact spacing so items fit.
+ * - sm to md: inline row that wraps into two+ rows as needed (no slider).
+ * - <sm: vertical list, small, no stretching (links keep intrinsic width).
+ */
 export default function Header({ links }: { links: NavLink[] }) {
   const { pathname } = useRouter();
 
   return (
     <header
       className="
-        flex flex-wrap sm:flex-nowrap
-        items-center
-        gap-8
-        p-6
-        sticky top-0 left-0 w-full
-        z-50 backdrop-blur-sm
-        bg-[#333333]
-      "// border-b-3 border-[#0e7dc2]
+        sticky top-0 z-50 w-full
+        bg-[#333333] backdrop-blur-sm
+        flex items-center gap-4 px-7 py-6
+        flex-col sm:flex-row
+        sm:flex-wrap md:flex-nowrap
+      "
     >
-      <img src="/logos/wrect.svg" alt="Print Impact" className="h-13 w-auto" />
+      {/* Logo */}
+      <img src="/logos/wrect.svg" alt="Print Impact" className="h-12 w-auto" />
 
-      <nav className="flex flex-wrap gap-5">
+      {/* Nav */}
+      <nav
+        className="
+          order-2 sm:order-none
+          w-full sm:w-auto
+          flex
+          flex-col sm:flex-row
+          gap-2 sm:gap-2 md:gap-3
+          ml-8
+          /* allow wrapping on small/tablet, prevent on md+ */
+          sm:flex-wrap md:flex-nowrap
+        "
+      >
         {links.map((l) => {
-          const active = pathname === l.href || pathname.startsWith(l.href + '/');
+          const active = pathname === l.href || pathname.startsWith(l.href + "/");
           return (
             <Link
               key={l.href}
               href={l.href}
+              aria-current={active ? "page" : undefined}
               className={`
-                px-4 py-0
-                rounded-full
-                border-2
-                text-lg
-               
-              
+                inline-flex items-center rounded-full border-[2px] transition
+                whitespace-nowrap
+                /* mobile: vertical stack uses small, no stretch */
+                px-3 py-1 text-[0.9rem]
+                /* scale up padding and font gradually */
+                sm:px-2 md:px-3 lg:px-4
+                sm:text-[0.95rem]
+                md:text-[clamp(0.95rem,1vw,1.05rem)]
                 ${active
-                  ? 'border-[#0e7dc2] bg-[#ffffff] text-[#333333]'
-                  : 'border-white text-white hover:border-[#0e7dc2] bg-[#333333] hover:text-[#333333]  hover:bg-[#ffffff]'
+                  ? "border-[#0e7dc2] bg-[#444444] text-white"
+                  : "border-[#f8f8f8] text-[#f8f8f8] bg-[#333333] hover:border-[#0e7dc2] hover:text-[#333333] hover:bg-white"
                 }
               `}
             >
@@ -45,15 +65,21 @@ export default function Header({ links }: { links: NavLink[] }) {
           );
         })}
       </nav>
-      <div className="ml-auto px-20">
+
+      {/* CTA */}
+      <div className="sm:ml-auto mr-15">
         <Link
           href="/contact"
-          className="px-6 py-1 my-[5rem] rounded-full border-2 text-white bg-[#0e7dc2] text-3xl border-white"
+          className="
+            inline-block rounded-sm px-4 py-2
+            text-[#f8f8f8] bg-[#0e7dc2]
+            text-lg sm:text-xl md:text-2xl
+            hover:border-2  hover:border-white
+          "
         >
           Contact
         </Link>
       </div>
-
     </header>
   );
 }

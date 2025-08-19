@@ -1,23 +1,23 @@
 import fs from "fs";
 import path from "path";
+import { imageSize } from "image-size"; // or Buffer workaround from earlier
 
 export type MedicalImage = {
   src: string;
   title: string;
+  width: number;
+  height: number;
 };
 
-
 export function getMedicalImages(): MedicalImage[] {
-  const medicalDir = path.join(process.cwd(), "public", "medical");
-
-  const files = fs.readdirSync(medicalDir)
-  .sort(() => Math.random() - 0.5);
-
-  // keep only images and turn into {src, title}
-  return files
-    .filter((f) => f.endsWith(".jpg") || f.endsWith(".jpeg") || f.endsWith(".png"))
-    .map((file) => ({
-      src: `/medical/${file}`,               // path usable in <img src>
-      title: path.parse(file).name,         // filename without extension
-    }));
+  const dir = path.join(process.cwd(), "public", "medical");
+  return fs.readdirSync(dir)
+    .filter((f) => /\.(jpe?g|png|webp|avif)$/i.test(f))
+    .sort((a, b) => a.localeCompare(b)) // sort filenames alphabetically
+    .map((file) => {
+      const abs = path.join(dir, file);
+      const buf = fs.readFileSync(abs);
+      const { width = 0, height = 0 } = imageSize(buf);
+      return { src: `/medical/${file}`, title: path.parse(file).name, width, height };
+    });
 }

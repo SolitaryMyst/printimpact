@@ -13,9 +13,10 @@ export function getSignageImages(): SignageImage[] {
   const dir = path.join(process.cwd(), "public", "signage");
   return fs.readdirSync(dir)
     .filter((f) => /\.(jpe?g|png|webp|avif)$/i.test(f))
+    .sort((a, b) => a.localeCompare(b)) // sort filenames alphabetically
     .map((file) => {
       const abs = path.join(dir, file);
-      const buf = fs.readFileSync(abs);                 // avoids TS path typing issue
+      const buf = fs.readFileSync(abs);
       const { width = 0, height = 0 } = imageSize(buf);
       return { src: `/signage/${file}`, title: path.parse(file).name, width, height };
     });
