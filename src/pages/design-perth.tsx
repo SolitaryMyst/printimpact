@@ -67,7 +67,7 @@ const SECTIONS: Section[] = [
       {
         icon: "bolt",
         text:
-          "Flyers, brochures, posters, catalogs, menus, and pitch decks. Clean hierarchy, accurate grids, and export presets tuned for printers.",
+          "Flyers, brochures, posters, catalogs, and menus. Clean hierarchy, accurate grids, and export presets tuned for printers.",
       },
       {
         icon: "check",
@@ -82,12 +82,12 @@ const SECTIONS: Section[] = [
       {
         icon: "shield",
         text:
-          "Clinic and lab forms, pads, labels, and sample IDs. Clear fields, compliant legends, and barcodes or QR for workflow speed.",
+          "Clinic and MR forms, pads, labels, and sample IDs. Clear fields, compliant Design.",
       },
       {
         icon: "map",
         text:
-          "Editable masters for updates. Version control and re-order codes so reception can request repeats without errors.",
+          "Efficient workflow for artwork updates, Version control and Streamlined re-ordering.",
       },
     ],
   },
@@ -97,12 +97,12 @@ const SECTIONS: Section[] = [
       {
         icon: "map",
         text:
-          "Static and animated ad sets sized for social, web, and large format. Copy fit and visual variants for A/B testing.",
+          "Static ad sets sized for social, web, and large format. Copy fit and visual variants with mock ups.",
       },
       {
         icon: "check",
         text:
-          "Out-of-home, point-of-sale, and window graphics mocked to scale. Hand-off kit includes specs and printer notes.",
+          "Out-of-home, point-of-sale, and window graphics mocked to scale and Branded Promotional merchandising ",
       },
     ],
   },
@@ -118,7 +118,7 @@ type WithHeader = NextPage<Props> & { pageHeader?: PageHeaderConfig };
 
 const DesignPerth: WithHeader = ({ images }) => {
   return (
-    <>
+    <main id="main">
       {/* Descriptive content ABOVE the image grid */}
       <article className="mx-auto max-w-7xl px-4 pt-6">
         <p className="text-neutral-800 font-bold">
@@ -129,8 +129,9 @@ const DesignPerth: WithHeader = ({ images }) => {
         <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {SECTIONS.map(({ title, items }) => {
             const base = slugify(title);
-            const sectionId = `${base}-content`;
-            const headingId = `${base}-content-h`;
+            // Anchor fix: #<base> with separate heading id
+            const sectionId = base;
+            const headingId = `${base}-h`;
 
             return (
               <section key={sectionId} id={sectionId} aria-labelledby={headingId} className="space-y-4">
@@ -188,7 +189,7 @@ const DesignPerth: WithHeader = ({ images }) => {
           })}
         </div>
       </div>
-    </>
+    </main>
   );
 };
 

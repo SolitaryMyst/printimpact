@@ -118,7 +118,7 @@ type WithHeader = NextPage<Props> & { pageHeader?: PageHeaderConfig };
 
 const CorporatePrintPerth: WithHeader = ({ images }) => {
   return (
-    <>
+    <main id="main">
       {/* Descriptive content ABOVE the image grid */}
       <article className="mx-auto max-w-7xl px-4 pt-6">
         <p className="text-neutral-800 font-bold">
@@ -129,8 +129,9 @@ const CorporatePrintPerth: WithHeader = ({ images }) => {
         <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {SECTIONS.map(({ title, items }) => {
             const base = slugify(title);
-            const sectionId = `${base}-content`;
-            const headingId = `${base}-content-h`;
+            // Anchor fix: #<base> with separate heading id
+            const sectionId = base;
+            const headingId = `${base}-h`;
 
             return (
               <section key={sectionId} id={sectionId} aria-labelledby={headingId} className="space-y-4">
@@ -188,7 +189,7 @@ const CorporatePrintPerth: WithHeader = ({ images }) => {
           })}
         </div>
       </div>
-    </>
+    </main>
   );
 };
 

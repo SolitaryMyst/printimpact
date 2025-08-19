@@ -1,16 +1,19 @@
+// src/components/PageHeader.tsx
 import Head from "next/head";
 import { useRouter } from "next/router";
 
 type PageHeaderProps = {
+  /** Main page title (renders as <h1>) */
   title?: string;
+  /** Section link bullets. Each becomes an anchor link to #slug */
   items?: string[];
-  /** Optional SEO */
+  /** SEO description */
   description?: string;
-  /** Canonical path like "/signage". Falls back to current route. */
+  /** Canonical path like "/signage-perth". Falls back to current route. */
   canonical?: string;
-  /** Base site URL. Defaults to NEXT_PUBLIC_SITE_URL. */
+  /** Base site URL. Defaults to NEXT_PUBLIC_SITE_URL. No hard-coded fallback. */
   siteUrl?: string;
-  /** Toggle ItemList JSON-LD. */
+  /** Toggle ItemList JSON-LD for bullets */
   emitStructuredData?: boolean;
 };
 
@@ -23,17 +26,20 @@ export default function PageHeader({
   items = [],
   description,
   canonical,
-  siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://new.printimpact.com.au",
+  siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "",
   emitStructuredData = true,
 }: PageHeaderProps) {
   const { asPath } = useRouter();
-  const canonicalUrl =
-    siteUrl && (canonical || asPath)
-      ? `${siteUrl}${(canonical || asPath).startsWith("/") ? (canonical || asPath) : `/${canonical || asPath}`}`
-      : undefined;
 
+  // Canonical: strip query/hash and normalize leading slash
+  const rawPath = (canonical ?? asPath) || "";
+  const pathOnly = rawPath.split("#")[0].split("?")[0];
+  const normalizedPath = pathOnly ? (pathOnly.startsWith("/") ? pathOnly : `/${pathOnly}`) : "";
+  const canonicalUrl = siteUrl && normalizedPath ? `${siteUrl}${normalizedPath}` : undefined;
+
+  // ItemList JSON-LD for bullets
   const itemListJsonLd =
-    items.length > 0
+    emitStructuredData && items.length > 0
       ? {
           "@context": "https://schema.org",
           "@type": "ItemList",
@@ -54,7 +60,17 @@ export default function PageHeader({
           {title && <title>{title} | Print Impact</title>}
           {description && <meta name="description" content={description} />}
           {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
-          {emitStructuredData && itemListJsonLd && (
+
+          {/* Open Graph / Twitter */}
+          {title && <meta property="og:title" content={`${title} | Print Impact`} />}
+          {description && <meta property="og:description" content={description} />}
+          {canonicalUrl && <meta property="og:url" content={canonicalUrl} />}
+          <meta property="og:type" content="website" />
+          <meta property="og:site_name" content="Print Impact" />
+          <meta property="og:locale" content="en_AU" />
+          <meta name="twitter:card" content="summary_large_image" />
+
+          {itemListJsonLd && (
             <script
               type="application/ld+json"
               dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd) }}
@@ -73,8 +89,8 @@ export default function PageHeader({
                 const id = slugify(text);
                 return (
                   <li key={id} className="whitespace-nowrap">
-                    {/* Promote each bullet to an H2 for semantic weight while keeping the inline bullet layout */}
-                    <h2 id={id} className="inline text-xl font-semibold">
+                    {/* No id here to avoid duplicate IDs with <section id={id}> in the page */}
+                    <h2 className="inline text-xl font-semibold">
                       <a href={`#${id}`}>{text}</a>
                     </h2>
                   </li>
@@ -86,7 +102,7 @@ export default function PageHeader({
 
         {(title || items.length > 0) && <div className="h-px w-full bg-[#333333]" />}
 
-        <div className="mt-[2rem]" />
+        <div className="mt-[0.5rem]" />
       </div>
     </>
   );

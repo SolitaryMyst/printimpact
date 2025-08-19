@@ -1,3 +1,4 @@
+// src/components/Header.tsx
 import Link from "next/link";
 import { useRouter } from "next/router";
 
@@ -15,19 +16,29 @@ export default function Header({ links }: { links: NavLink[] }) {
   return (
     <header
       className="
-         w-full
-       bg-[#333333] backdrop-blur-sm
-         flex items-center gap-4 px-7 py-6
-         flex-col sm:flex-row
-         sm:flex-wrap md:flex-nowrap
-         sm:sticky sm:top-0 sm:z-50
- "
+        w-full bg-[#333333] backdrop-blur-sm
+        flex items-center gap-4 px-7 py-6
+        flex-col sm:flex-row
+        sm:flex-wrap md:flex-nowrap
+        sm:sticky sm:top-0 sm:z-50
+      "
     >
-      {/* Logo */}
-      <img src="/logos/wrect.svg" alt="Print Impact" className="h-12 w-auto" />
+      {/* Skip link for keyboard users */}
+      <a
+        href="#main"
+        className="sr-only focus:not-sr-only focus:absolute focus:p-2 focus:bg-neutral-900 focus:text-white"
+      >
+        Skip to content
+      </a>
+
+      {/* Logo links home; decorative image uses empty alt */}
+      <Link href="/" aria-label="Print Impact home" className="inline-flex">
+        <img src="/logos/wrect.svg" alt="" className="h-12 w-auto" />
+      </Link>
 
       {/* Nav */}
       <nav
+        aria-label="Primary"
         className="
           order-2 sm:order-none
           w-full sm:w-auto
@@ -35,7 +46,6 @@ export default function Header({ links }: { links: NavLink[] }) {
           flex-col sm:flex-row
           gap-2 sm:gap-2 md:gap-3
           ml-8
-          /* allow wrapping on small/tablet, prevent on md+ */
           sm:flex-wrap md:flex-nowrap
         "
       >
@@ -49,9 +59,7 @@ export default function Header({ links }: { links: NavLink[] }) {
               className={`
                 inline-flex items-center rounded-full border-[2px] transition
                 whitespace-nowrap
-                /* mobile: vertical stack uses small, no stretch */
                 px-3 py-1 text-[0.9rem]
-                /* scale up padding and font gradually */
                 sm:px-2 md:px-3 lg:px-4
                 sm:text-[0.95rem]
                 md:text-[clamp(0.95rem,1vw,1.05rem)]
@@ -68,14 +76,14 @@ export default function Header({ links }: { links: NavLink[] }) {
       </nav>
 
       {/* CTA */}
-      <div className="sm:ml-auto mr-15">
+      <div className="sm:ml-auto mr-4">
         <Link
           href="/contact"
           className="
             inline-block rounded-sm px-4 py-2
             text-[#f8f8f8] bg-[#0e7dc2]
-            text-lg sm:text-xl md:text-2xl
-            hover:border-2  hover:border-white
+            text-lg sm:text-xl md:text-2xl border-2 border-transparent
+            hover:border-white
           "
         >
           Contact

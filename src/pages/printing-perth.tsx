@@ -43,7 +43,7 @@ type SectionItem = { text: string; icon?: IconName };
 type Section = { title: string; items: SectionItem[] };
 
 const INTRO =
-  "Perth printing, end to end. Business cards, tags, labels, stickers, flyers, brochures, posters, packaging and boxes. In-house digital and offset with fast turnarounds, colour control, and clear pricing.";
+  "Perth printing, end to end. Business cards, tags, labels, stickers, flyers, brochures, posters, packaging and boxes. Digital and offset with fast turnarounds, colour control, and competitive pricing.";
 
 const SECTIONS: Section[] = [
   {
@@ -57,7 +57,7 @@ const SECTIONS: Section[] = [
       {
         icon: "bolt",
         text:
-          "Swing tags and cards for retail and events. Die-cut shapes, drill holes, and stringing. Variable data for names or numbers. Short runs available same or next day across Perth.",
+          "Swing tags and cards for retail and events. Die-cut shapes, drill holes, and stringing. Variable data for names or numbers.",
       },
     ],
   },
@@ -118,7 +118,7 @@ type WithHeader = NextPage<Props> & { pageHeader?: PageHeaderConfig };
 
 const Printing: WithHeader = ({ images }) => {
   return (
-    <>
+    <main id="main">
       {/* Descriptive content ABOVE the image grid */}
       <article className="mx-auto max-w-7xl px-4 pt-6">
         <p className="text-neutral-800 font-bold">
@@ -129,8 +129,9 @@ const Printing: WithHeader = ({ images }) => {
         <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {SECTIONS.map(({ title, items }) => {
             const base = slugify(title);
-            const sectionId = `${base}-content`;
-            const headingId = `${base}-content-h`;
+            // Anchor fix: use #<base> instead of #<base>-content
+            const sectionId = base;
+            const headingId = `${base}-h`;
 
             return (
               <section key={sectionId} id={sectionId} aria-labelledby={headingId} className="space-y-4">
@@ -189,7 +190,7 @@ const Printing: WithHeader = ({ images }) => {
           })}
         </div>
       </div>
-    </>
+    </main>
   );
 };
 

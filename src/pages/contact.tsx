@@ -120,7 +120,7 @@ const Contact: WithHeader = () => {
           )}
         </button>
 
-        {msg && <p className={/Sent/.test(msg) ? "text-[#8dff60]" : "text-red-500"}>{msg}</p>}
+        {msg && <p className={/Sent/.test(msg) ? "text-[#268600] font-bold" : "text-red-500"}>{msg}</p>}
       </form>
     </div>
   );

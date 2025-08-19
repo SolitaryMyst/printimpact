@@ -1,4 +1,4 @@
-new.printimpact.com.au {
+printimpact.com.au {
   encode zstd gzip
   reverse_proxy web:3000
 }

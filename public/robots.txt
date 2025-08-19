@@ -1,2 +1,3 @@
 User-agent: *
 Allow: /
+Sitemap: https://printimpact.com.au/sitemap.xml

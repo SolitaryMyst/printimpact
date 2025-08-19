@@ -43,7 +43,7 @@ type SectionItem = { text: string; icon?: IconName };
 type Section = { title: string; items: SectionItem[] };
 
 const INTRO =
-  "Medical print and supply for clinics and labs across Perth. Medical signage, patient records and forms, record covers and filing, labels and wristbands, plus all physical record consumables with reliable turnarounds.";
+  "Medical print and supply for, hospitals, clinics and labs across Perth. Medical signage, patient records and forms, record covers and filing, labels, plus all physical record consumables with reliable turnarounds.";
 
 const SECTIONS: Section[] = [
   {
@@ -52,12 +52,12 @@ const SECTIONS: Section[] = [
       {
         icon: "check",
         text:
-          "Patient registration, pathology requests, consent, and progress notes. NCR pads or laser-safe sheets with barcodes or QR for workflow tracking.",
+          "Patient Medical records, Dividers, Record cover, consent, and progress notes. NCR pads or laser-safe sheets.",
       },
       {
         icon: "factory",
         text:
-          "Editable masters and version control. Press PDFs and working files supplied on request for future updates.",
+          "Efficient workflow for artwork updates, Version control and Streamlined re-ordering.",
       },
     ],
   },
@@ -87,7 +87,7 @@ const SECTIONS: Section[] = [
       {
         icon: "check",
         text:
-          "Index dividers, tab sets, spine labels, and archive boxes. Packed and labelled for easy shelving and retrieval.",
+          "Index dividers, tab sets, spine labels, and archive boxes. Packed and labelled for easy shelving and retrieval. Offsite storage for all items",
       },
     ],
   },
@@ -118,7 +118,7 @@ type WithHeader = NextPage<Props> & { pageHeader?: PageHeaderConfig };
 
 const MedicalSupplyPerth: WithHeader = ({ images }) => {
   return (
-    <>
+    <main id="main">
       {/* Descriptive content ABOVE the image grid */}
       <article className="mx-auto max-w-7xl px-4 pt-6">
         <p className="text-neutral-800 font-bold">
@@ -129,8 +129,9 @@ const MedicalSupplyPerth: WithHeader = ({ images }) => {
         <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {SECTIONS.map(({ title, items }) => {
             const base = slugify(title);
-            const sectionId = `${base}-content`;
-            const headingId = `${base}-content-h`;
+            // Anchor fix: #<base> with separate heading id
+            const sectionId = base;
+            const headingId = `${base}-h`;
 
             return (
               <section key={sectionId} id={sectionId} aria-labelledby={headingId} className="space-y-4">
@@ -188,13 +189,12 @@ const MedicalSupplyPerth: WithHeader = ({ images }) => {
           })}
         </div>
       </div>
-    </>
+    </main>
   );
 };
 
 /** Header config consumed by <PageHeader /> */
 MedicalSupplyPerth.pageHeader = {
-  ...MedicalSupplyPerth.pageHeader,
   title: "Medical Supply Perth",
   items: [
     "Medical Records & Forms",
@@ -207,7 +207,6 @@ MedicalSupplyPerth.pageHeader = {
   canonical: "/medical-supply-perth",
   emitStructuredData: true,
 };
-
 
 export default MedicalSupplyPerth;
 

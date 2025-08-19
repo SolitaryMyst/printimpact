@@ -1,4 +1,4 @@
-// src/pages/signage.tsx
+// src/pages/signage-perth.tsx
 import type { GetStaticProps, NextPage } from "next";
 import { getSignageImages } from "@/data/signageImages";
 import type { SignageImage } from "@/data/signageImages";
@@ -72,7 +72,7 @@ const SECTIONS: Section[] = [
       {
         icon: "check",
         text:
-          "ACM panels, 3D routered letters, illuminated options, frost films, and removable campaigns. Maintenance and change-outs available.",
+          "ACM panels, Routered letters & panels, frost films, and removable campaigns. Maintenance and change-outs available.",
       },
     ],
   },
@@ -92,7 +92,7 @@ const SECTIONS: Section[] = [
     ],
   },
   {
-    title: "Procedure & Safety Signage",
+    title: "Procedure & Safety",
     items: [
       {
         icon: "shield",
@@ -100,9 +100,9 @@ const SECTIONS: Section[] = [
           "Procedure boards and critical-control signage for production cells and labs. Wipe-clean with QR codes linking to SOPs. Layouts prioritise legibility.",
       },
       {
-        icon: "map",
+        icon: "check",
         text:
-          "Mounting options include stanchions, wall rails, and floor stands. Laminated cards for toolboxes and changeover kits to match.",
+          "Take 5 Books with reusable sleeves. Variable numbering NCR books for any use.",
       },
     ],
   },
@@ -118,41 +118,42 @@ type WithHeader = NextPage<Props> & { pageHeader?: PageHeaderConfig };
 
 const Signage: WithHeader = ({ images }) => {
   return (
-    <>
+    <main id="main">
       {/* Descriptive content ABOVE the image grid */}
       <article className="mx-auto max-w-7xl px-4 pt-6">
-  <p className="text-neutral-800 font-bold">
-    {INTRO} <a href="/contact" className="underline">Request a quote</a>.
-  </p>
+        <p className="text-neutral-800 font-bold">
+          {INTRO} <a href="/contact" className="underline">Request a quote</a>.
+        </p>
 
-  {/* Sections inline: 1 col (sm), 2 cols (md), 4 cols (lg) */}
-  <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-    {SECTIONS.map(({ title, items }) => {
-      const base = slugify(title);
-      const sectionId = `${base}-content`;
-      const headingId = `${base}-content-h`;
+        {/* Sections inline: 1 col (sm), 2 cols (md), 4 cols (lg) */}
+        <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {SECTIONS.map(({ title, items }) => {
+            const base = slugify(title);
+            // Anchor fix: #<base> with separate heading id
+            const sectionId = base;
+            const headingId = `${base}-h`;
 
-      return (
-        <section key={sectionId} id={sectionId} aria-labelledby={headingId} className="space-y-4">
-          <h2 id={headingId} className="text-2xl font-semibold">{title}</h2>
+            return (
+              <section key={sectionId} id={sectionId} aria-labelledby={headingId} className="space-y-4">
+                <h2 id={headingId} className="text-2xl font-semibold">{title}</h2>
 
-          {/* Keep items vertical inside each section */}
-          <ul className="space-y-3">
-            {items.map(({ text, icon }, i) => {
-              const Icon = icon ? Icons[icon] : null;
-              return (
-                <li key={i} className="flex items-start gap-3">
-                  {Icon ? <Icon className="h-5 w-5 mt-1 shrink-0" /> : null}
-                  <p className="text-neutral-800">{text}</p>
-                </li>
-              );
-            })}
-          </ul>
-        </section>
-      );
-    })}
-  </div>
-</article>
+                {/* Keep items vertical inside each section */}
+                <ul className="space-y-3">
+                  {items.map(({ text, icon }, i) => {
+                    const Icon = icon ? Icons[icon] : null;
+                    return (
+                      <li key={i} className="flex items-start gap-3">
+                        {Icon ? <Icon className="h-5 w-5 mt-1 shrink-0" /> : null}
+                        <p className="text-neutral-800">{text}</p>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </section>
+            );
+          })}
+        </div>
+      </article>
 
       {/* Image grid BELOW the descriptive content */}
       <div className="mx-auto px-4 mt-8">
@@ -170,8 +171,9 @@ const Signage: WithHeader = ({ images }) => {
             return (
               <figure
                 key={img.src}
-                className={`relative rounded-lg overflow-hidden bg-transparent ${landscape ? "col-span-2 row-span-1" : "col-span-2 row-span-2"
-                  }`}
+                className={`relative rounded-lg overflow-hidden bg-transparent ${
+                  landscape ? "col-span-2 row-span-1" : "col-span-2 row-span-2"
+                }`}
               >
                 <img
                   src={img.src}
@@ -186,7 +188,7 @@ const Signage: WithHeader = ({ images }) => {
           })}
         </div>
       </div>
-    </>
+    </main>
   );
 };
 
