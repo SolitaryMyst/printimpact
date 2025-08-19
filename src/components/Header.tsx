@@ -15,12 +15,13 @@ export default function Header({ links }: { links: NavLink[] }) {
   return (
     <header
       className="
-        sticky top-0 z-50 w-full
-        bg-[#333333] backdrop-blur-sm
-        flex items-center gap-4 px-7 py-6
-        flex-col sm:flex-row
-        sm:flex-wrap md:flex-nowrap
-      "
+         w-full
+       bg-[#333333] backdrop-blur-sm
+         flex items-center gap-4 px-7 py-6
+         flex-col sm:flex-row
+         sm:flex-wrap md:flex-nowrap
+         sm:sticky sm:top-0 sm:z-50
+ "
     >
       {/* Logo */}
       <img src="/logos/wrect.svg" alt="Print Impact" className="h-12 w-auto" />
