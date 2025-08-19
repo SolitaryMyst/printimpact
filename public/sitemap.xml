@@ -1,10 +1,8 @@
-<!-- public/sitemap.xml -->
-<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://printimpact.com.au/printing-perth</loc></url>
-  <url><loc>https://printimpact.com.au/design-perth</loc></url>
-  <url><loc>https://printimpact.com.au/signage-perth</loc></url>
-  <url><loc>https://printimpact.com.au/corporate-print-perth</loc></url>
-  <url><loc>https://printimpact.com.au/medical-supply-perth</loc></url>
-  <url><loc>https://printimpact.com.au/contact</loc></url>
+  <url><loc>https://printimpact.com.au/printing-perth</loc><lastmod>2025-08-20</lastmod></url>
+  <url><loc>https://printimpact.com.au/design-perth</loc><lastmod>2025-08-20</lastmod></url>
+  <url><loc>https://printimpact.com.au/signage-perth</loc><lastmod>2025-08-20</lastmod></url>
+  <url><loc>https://printimpact.com.au/corporate-print-perth</loc><lastmod>2025-08-20</lastmod></url>
+  <url><loc>https://printimpact.com.au/medical-supply-perth</loc><lastmod>2025-08-20</lastmod></url>
+  <url><loc>https://printimpact.com.au/contact</loc><lastmod>2025-08-20</lastmod></url>
 </urlset>
