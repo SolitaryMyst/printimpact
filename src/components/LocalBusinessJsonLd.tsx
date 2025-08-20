@@ -1,16 +1,17 @@
-// src/components/LocalBusinessJsonLd.tsx
 import Head from "next/head";
 import { COMPANY } from "@/data/company";
 
 function toOpeningHoursSpecification() {
   return COMPANY.openingHours.flatMap(({ days, opens, closes }) =>
-    days.map((d) => ({ "@type": "OpeningHoursSpecification", dayOfWeek: d, opens, closes })),
+    days.map((d) => ({ "@type":"OpeningHoursSpecification", dayOfWeek: d, opens, closes })),
   );
 }
 
 export default function LocalBusinessJsonLd() {
+  const LOGO = "https://www.printimpact.com.au/logos/logo-512x512.png"; // PNG, square
+
   const address = {
-    "@type": "PostalAddress",
+    "@type":"PostalAddress",
     streetAddress: COMPANY.streetAddress,
     addressLocality: COMPANY.addressLocality,
     addressRegion: COMPANY.addressRegion,
@@ -19,8 +20,8 @@ export default function LocalBusinessJsonLd() {
   };
 
   const data = {
-    "@context": "https://schema.org",
-    "@type": "LocalBusiness",
+    "@context":"https://schema.org",
+    "@type":"LocalBusiness",
     "@id": `${COMPANY.url}#localbusiness`,
     name: COMPANY.name,
     legalName: COMPANY.legalName,
@@ -28,16 +29,15 @@ export default function LocalBusinessJsonLd() {
     email: COMPANY.email,
     telephone: COMPANY.phone,
     address,
-    image: `${COMPANY.url}/logos/wrect.svg`,
-    logo: `${COMPANY.url}/logos/wrect.svg`,
+    logo: LOGO,          // use the const here
+    image: LOGO,         // optional
     sameAs: COMPANY.sameAs?.length ? COMPANY.sameAs : undefined,
     hasMap: COMPANY.googleBusinessProfileUrl,
     openingHoursSpecification: toOpeningHoursSpecification(),
-    areaServed: { "@type": "AdministrativeArea", name: "Perth, WA" },
-    geo:
-      COMPANY.geo.latitude && COMPANY.geo.longitude
-        ? { "@type": "GeoCoordinates", latitude: COMPANY.geo.latitude, longitude: COMPANY.geo.longitude }
-        : undefined,
+    areaServed: { "@type":"AdministrativeArea", name: "Perth, WA" },
+    geo: COMPANY.geo.latitude && COMPANY.geo.longitude
+      ? { "@type":"GeoCoordinates", latitude: COMPANY.geo.latitude, longitude: COMPANY.geo.longitude }
+      : undefined,
     priceRange: "$$",
   };
 

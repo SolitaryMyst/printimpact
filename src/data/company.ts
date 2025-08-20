@@ -12,6 +12,7 @@ export const COMPANY = {
   email: "contact@printimpact.com.au",
   url: process.env.NEXT_PUBLIC_SITE_URL || "https://printimpact.com.au",
   googleBusinessProfileUrl: "https://g.page/r/CQohnk-5ce--EBM", // TODO
+  googleBusinessReviewUrl: "https://g.page/r/CQohnk-5ce--EBM/review", // TODO
   sameAs: [
     // Add profiles you actually use. Remove if none.
     // "https://www.instagram.com/…",

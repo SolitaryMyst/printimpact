@@ -29,7 +29,14 @@ export default function Footer() {
               <a href={COMPANY.googleBusinessProfileUrl} target="_blank" rel="noopener" className="underline">
                 Google Business Profile
               </a>
-            </p>
+            </p>          
+          )}
+            {COMPANY.googleBusinessReviewUrl && (
+            <p className="mt-2">
+              <a href={COMPANY.googleBusinessReviewUrl} target="_blank" rel="noopener" className="underline">
+                Leave a review
+              </a>
+            </p>          
           )}
         </section>
 
