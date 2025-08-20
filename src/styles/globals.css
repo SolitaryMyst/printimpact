@@ -8,13 +8,6 @@ body {
   background: var(--page);
 }
 
-body {
-  background-image: url('/bg.webp');
-  background-size: cover;
-  background-position: center;
-}
-
-
 html,
 body,
 #__next {

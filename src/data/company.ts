@@ -8,7 +8,7 @@ export const COMPANY = {
   addressRegion: "WA",
   postalCode: "6162",
   addressCountry: "AU",
-  phone: "0414 479 269",                // E.164 preferred
+  phone: "+61414479269",                // E.164 preferred
   email: "contact@printimpact.com.au",
   url: process.env.NEXT_PUBLIC_SITE_URL || "https://printimpact.com.au",
   googleBusinessProfileUrl: "https://g.page/r/CQohnk-5ce--EBM", // TODO

@@ -8,7 +8,7 @@ function toOpeningHoursSpecification() {
 }
 
 export default function LocalBusinessJsonLd() {
-  const LOGO = "https://www.printimpact.com.au/logos/logo-512x512.png"; // PNG, square
+  const LOGO = "https://printimpact.com.au/logos/logo-512x512.png"; // PNG, square
 
   const address = {
     "@type":"PostalAddress",
