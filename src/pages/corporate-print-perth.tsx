@@ -195,7 +195,7 @@ const CorporatePrintPerth: WithHeader = ({ images }) => {
 
 /** Header config consumed by <PageHeader /> */
 CorporatePrintPerth.pageHeader = {
-  title: "Corporate Printing Perth",
+  title: "Corporate Printing",
   items: [
     "Letterheads & Compliments Slips",
     "Business Cards & Stationery",

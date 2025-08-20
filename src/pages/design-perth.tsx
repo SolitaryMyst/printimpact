@@ -195,7 +195,7 @@ const DesignPerth: WithHeader = ({ images }) => {
 
 /** Header config consumed by <PageHeader /> */
 DesignPerth.pageHeader = {
-  title: "Graphic Design Perth",
+  title: "Graphic Design",
   items: [
     "Branding & Identity",
     "Graphic Design & Layout",

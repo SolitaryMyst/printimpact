@@ -195,7 +195,7 @@ const MedicalSupplyPerth: WithHeader = ({ images }) => {
 
 /** Header config consumed by <PageHeader /> */
 MedicalSupplyPerth.pageHeader = {
-  title: "Medical Supply Perth",
+  title: "Medical Supply",
   items: [
     "Medical Records & Forms",
     "Medical Signage",

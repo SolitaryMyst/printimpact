@@ -1,4 +1,5 @@
 // next.config.js
+/** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
   async redirects() {
@@ -10,9 +11,21 @@ const nextConfig = {
       { source: "/contact-us", destination: "/contact", permanent: true },
       { source: "/take-action", destination: "/contact", permanent: true },
       { source: "/new-page", destination: "/printing-perth", permanent: true },
-      // if /bethesda was a private portal and is gone:
-      { source: "/bethesda", destination: "/medical-supply-perth", permanent: true },
+
+      // /bethesda (exact)
+      {
+        source: "/bethesda",
+        destination: "https://form.jotform.com/93288694319877",
+        permanent: true,
+      },
+      // /bethesda/... (any subpaths)
+      {
+        source: "/bethesda/:path*",
+        destination: "https://form.jotform.com/93288694319877",
+        permanent: true,
+      },
     ];
   },
 };
+
 module.exports = nextConfig;

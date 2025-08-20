@@ -197,7 +197,7 @@ Signage.pageHeader = {
   title: "Signage & Production Safety",
   items: ["WHS Signs", "Brand Signage", "Custom whiteboards", "Procedure & Safety"],
   description:
-    "WHS signs, brand signage, custom whiteboards, and custom procedure and safety signage. Design, manufacture, and install in Perth.",
+    "WHS signs, brand signage, custom whiteboards, tags, stickers and custom procedure and safety signage. Design, manufacture, and install in Perth.",
   canonical: "/signage-perth",
   emitStructuredData: true,
 };
