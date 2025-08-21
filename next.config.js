@@ -9,8 +9,8 @@ const nextConfig = {
 
       // legacy Squarespace paths → relevant pages
       { source: "/contact-us", destination: "/contact", permanent: true },
-      { source: "/take-action", destination: "/contact", permanent: true },
-      { source: "/new-page", destination: "/printing-perth", permanent: true },
+      
+      
 
       // /bethesda (exact)
       {
