@@ -11,8 +11,6 @@ export default function Footer() {
         <section>
           <h2 className="text-xl font-bold">{COMPANY.legalName}</h2>
           <p className="mt-2">
-            {COMPANY.streetAddress}
-            <br />
             {COMPANY.addressLocality} {COMPANY.addressRegion} {COMPANY.postalCode}
           </p>
           <p className="mt-2">
@@ -54,16 +52,7 @@ export default function Footer() {
 
         {/* Map */}
         <section className="lg:col-span-1">
-          <h2 className="text-xl font-bold">Find us</h2>
-          <div className="mt-2 aspect-[4/3] w-full overflow-hidden rounded-md border">
-            <iframe
-              title="Map"
-              src={mapSrc}
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              className="h-full w-full"
-            />
-          </div>
+          <img src="/logos/greyicon.svg" alt="" className="h-full w-auto" />
         </section>
       </div>
 

@@ -3,16 +3,16 @@
 export const COMPANY = {
   legalName: "Print Impact Pty Ltd",
   name: "Print Impact",
-  streetAddress: "Unit 4/136-140 Hampton Rd",            // e.g., "12 Example St"
-  addressLocality: "South Fremantle",
+  streetAddress: "",            // e.g., "12 Example St"
+  addressLocality: "East Fremantle",
   addressRegion: "WA",
-  postalCode: "6162",
+  postalCode: "6158",
   addressCountry: "AU",
   phone: "+61414479269",                // E.164 preferred
   email: "contact@printimpact.com.au",
   url: process.env.NEXT_PUBLIC_SITE_URL || "https://printimpact.com.au",
-  googleBusinessProfileUrl: "https://g.page/r/CQohnk-5ce--EBM", // TODO
-  googleBusinessReviewUrl: "https://g.page/r/CQohnk-5ce--EBM/review", // TODO
+  googleBusinessProfileUrl: "https://g.page/r/CZ7nsfhK2Mr-EBM", // TODO
+  googleBusinessReviewUrl: "https://g.page/r/CZ7nsfhK2Mr-EBM/review", // TODO
   sameAs: [
     // Add profiles you actually use. Remove if none.
     // "https://www.instagram.com/…",
