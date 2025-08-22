@@ -1,4 +1,4 @@
-// src/pages/printing-perth.tsx
+// src/pages/index.tsx
 import type { GetStaticProps, NextPage } from "next";
 import { getPrintingImages } from "@/data/printingImages";
 import type { PrintingImage } from "@/data/printingImages";
@@ -199,8 +199,8 @@ Printing.pageHeader = {
   title: "Printing Perth",
   items: ["Business Cards & Tags", "Labels & Stickers", "Packaging & Boxes", "Flyers & Brochures"],
   description:
-    "Commercial and digital printing in Perth. Business cards, labels and stickers, flyers, brochures, posters, packaging and boxes with fast turnarounds.",
-  canonical: "/printing-perth",
+    "Commercial and digital printing in Perth. Labels and stickers, flyers, brochures, posters, packaging and boxes with fast turnarounds.",
+  canonical: "https://printimpact.com.au/",
   emitStructuredData: true,
 };
 

@@ -6,7 +6,7 @@ export default class MyDocument extends Document {
     return (
       <Html lang="en-AU">
         <Head>
-          <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+          <link rel="icon" href="/favicon.svg" type="image/svg+xml" sizes="any"/>
           <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png" />
           <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
           <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />

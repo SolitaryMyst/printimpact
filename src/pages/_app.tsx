@@ -20,7 +20,7 @@ const redHat = Red_Hat_Display({
 });
 
 const navLinks = [
-  { href: "/printing-perth", label: "Print" },
+  { href: "/", label: "Print" },
   { href: "/design-perth", label: "Design" },
   { href: "/signage-perth", label: "Signage" },
   { href: "/corporate-print-perth", label: "Corporate" },

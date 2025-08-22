@@ -4,7 +4,9 @@ const nextConfig = {
   reactStrictMode: true,
   async redirects() {
     return [
-      { source: "/", destination: "/printing-perth", permanent: true },
+      
+      { source: "/printing-perth", destination: "/", permanent: true },
+
       { source: "/signage", destination: "/signage-perth", permanent: true },
 
       // legacy Squarespace paths → relevant pages
