@@ -11,8 +11,10 @@ type PageHeaderProps = {
   description?: string;
   /** Canonical path like "/signage-perth". Falls back to current route. */
   canonical?: string;
-  /** Base site URL. Defaults to NEXT_PUBLIC_SITE_URL. No hard-coded fallback. */
+  /** Base site URL. Defaults to NEXT_PUBLIC_SITE_URL. */
   siteUrl?: string;
+  /** Site name used in <title> and og:site_name. Defaults to NEXT_PUBLIC_SITE_NAME or "Print Impact". */
+  siteName?: string;
   /** Toggle ItemList JSON-LD for bullets */
   emitStructuredData?: boolean;
 };
@@ -27,17 +29,34 @@ export default function PageHeader({
   description,
   canonical,
   siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "",
+  siteName = process.env.NEXT_PUBLIC_SITE_NAME || "Print Impact",
   emitStructuredData = true,
 }: PageHeaderProps) {
   const { asPath } = useRouter();
 
-  // Canonical: strip query/hash and normalize leading slash
+  // ---- Canonical: strip query/hash and normalize leading slash
   const rawPath = (canonical ?? asPath) || "";
   const pathOnly = rawPath.split("#")[0].split("?")[0];
-  const normalizedPath = pathOnly ? (pathOnly.startsWith("/") ? pathOnly : `/${pathOnly}`) : "";
-  const canonicalUrl = siteUrl && normalizedPath ? `${siteUrl}${normalizedPath}` : undefined;
+  const normalizedPath = pathOnly
+    ? pathOnly.startsWith("/")
+      ? pathOnly
+      : `/${pathOnly}`
+    : "";
+  const isHome = normalizedPath === "" || normalizedPath === "/";
+  const canonicalUrl = siteUrl
+    ? isHome
+      ? siteUrl
+      : `${siteUrl}${normalizedPath}`
+    : undefined;
 
-  // ItemList JSON-LD for bullets
+  // ---- Title (home uses "Site | Title", others "Title | Site")
+  const pageTitle = title
+    ? isHome
+      ? `${siteName} | ${title}`
+      : `${title} | ${siteName}`
+    : siteName;
+
+  // ---- ItemList JSON-LD for bullets
   const itemListJsonLd =
     emitStructuredData && items.length > 0
       ? {
@@ -55,20 +74,20 @@ export default function PageHeader({
 
   return (
     <>
-      {(title || description || canonicalUrl || itemListJsonLd) && (
+      {(pageTitle || description || canonicalUrl || itemListJsonLd) && (
         <Head>
-          {title && <title>{title} | Print Impact</title>}
+          <title>{pageTitle}</title>
           {description && <meta name="description" content={description} />}
           {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
 
           {/* Open Graph / Twitter */}
-          {title && <meta property="og:title" content={`${title} | Print Impact`} />}
-          {description && <meta property="og:description" content={description} />}
-          {canonicalUrl && <meta property="og:url" content={canonicalUrl} />}
           <meta property="og:type" content="website" />
-          <meta property="og:site_name" content="Print Impact" />
+          <meta property="og:site_name" content={siteName} />
           <meta property="og:locale" content="en_AU" />
           <meta name="twitter:card" content="summary_large_image" />
+          <meta property="og:title" content={pageTitle} />
+          {description && <meta property="og:description" content={description} />}
+          {canonicalUrl && <meta property="og:url" content={canonicalUrl} />}
 
           {itemListJsonLd && (
             <script
@@ -89,7 +108,6 @@ export default function PageHeader({
                 const id = slugify(text);
                 return (
                   <li key={id} className="whitespace-nowrap">
-                    {/* No id here to avoid duplicate IDs with <section id={id}> in the page */}
                     <h2 className="inline text-xl font-semibold">
                       <a href={`#${id}`}>{text}</a>
                     </h2>

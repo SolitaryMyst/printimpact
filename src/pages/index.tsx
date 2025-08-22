@@ -116,13 +116,13 @@ function slugify(s: string) {
 /** Page */
 type WithHeader = NextPage<Props> & { pageHeader?: PageHeaderConfig };
 
-const Printing: WithHeader = ({ images }) => {
+const Index: WithHeader = ({ images }) => {
   return (
     <main id="main">
       {/* Descriptive content ABOVE the image grid */}
       <article className="mx-auto max-w-7xl px-4 pt-6">
         <p className="text-neutral-800 font-bold">
-          {INTRO} <a href="/contact" className="underline">Request a quote</a>.
+          {INTRO} <a href="/contact" className="ml-3 underline"> Request a quote</a>.
         </p>
 
         {/* Sections inline: 1 col (sm), 2 cols (md), 4 cols (lg) */}
@@ -195,16 +195,16 @@ const Printing: WithHeader = ({ images }) => {
 };
 
 /** Header config consumed by <PageHeader /> */
-Printing.pageHeader = {
+
+export default Index;
+Index.pageHeader = {
   title: "Printing Perth",
   items: ["Business Cards & Tags", "Labels & Stickers", "Packaging & Boxes", "Flyers & Brochures"],
   description:
-    "Commercial and digital printing in Perth. Labels and stickers, flyers, brochures, posters, packaging and boxes with fast turnarounds.",
-  canonical: "https://printimpact.com.au/",
+    "Commercial and digital printing in Perth. Business cards, labels and stickers, flyers, brochures, posters, packaging and boxes with fast turnarounds.",
+  canonical: "/", // important now that this is the homepage
   emitStructuredData: true,
 };
-
-export default Printing;
 
 /** Static props */
 export const getStaticProps: GetStaticProps<Props> = async () => {

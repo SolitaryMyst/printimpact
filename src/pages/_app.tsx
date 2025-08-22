@@ -16,7 +16,7 @@ import { useEffect } from "react";
 
 const redHat = Red_Hat_Display({
   subsets: ["latin"],
-  weight: ["400", "600"],
+  weight: ["400","500", "600" ,"700"],
 });
 
 const navLinks = [
@@ -53,7 +53,7 @@ export default function App({ Component, pageProps }: AppProps) {
     Page.getLayout ??
     ((page: ReactNode) => (
       <div
-        className={redHat.className}
+        className={`${redHat.className} font-medium`}
         style={{ letterSpacing: "0.0250em", fontKerning: "normal" }}
       >
         {/* GA4 */}

@@ -122,7 +122,7 @@ const CorporatePrintPerth: WithHeader = ({ images }) => {
       {/* Descriptive content ABOVE the image grid */}
       <article className="mx-auto max-w-7xl px-4 pt-6">
         <p className="text-neutral-800 font-bold">
-          {INTRO} <a href="/contact" className="underline">Request a quote</a>.
+          {INTRO} <a href="/contact" className="ml-3 underline"> Request a quote</a>.
         </p>
 
         {/* Sections inline: 1 col (sm), 2 cols (md), 4 cols (lg) */}
