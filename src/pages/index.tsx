@@ -106,6 +106,7 @@ const SECTIONS: Section[] = [
       },
     ],
   },
+
 ];
 
 /** Utils */
@@ -120,13 +121,13 @@ const Index: WithHeader = ({ images }) => {
   return (
     <main id="main">
       {/* Descriptive content ABOVE the image grid */}
-      <article className="mx-auto max-w-7xl px-4 pt-6">
+      <article className="mx-auto max-w-[100rem] px-4 pt-6">
         <p className="text-neutral-800 font-bold">
           {INTRO} <a href="/contact" className="ml-3 underline"> Request a quote</a>.
         </p>
 
-        {/* Sections inline: 1 col (sm), 2 cols (md), 4 cols (lg) */}
-        <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        {/* Sections inline: 1 col (sm), 2 cols (md), 5 cols (lg) */}
+        <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
           {SECTIONS.map(({ title, items }) => {
             const base = slugify(title);
             // Anchor fix: use #<base> instead of #<base>-content
@@ -154,6 +155,33 @@ const Index: WithHeader = ({ images }) => {
               </section>
             );
           })}
+          <section className="lg:col-span-1">
+            <h3 className="text-2xl font-semibold">
+              <h3 className="relative text-2xl font-semibold">
+                <a href="https://www.google.com/maps/d/edit?mid=1RyiRpLlpJhTqVsfaweBlWBJbvLj1IQ0&usp=sharing" className="text-inherit no-underline">
+                  Service area
+                  <span aria-hidden className="absolute inset-0" />
+                </a>
+              </h3>
+
+
+
+            </h3>
+            <div className="mt-2 aspect-[3/4] w-full overflow-hidden rounded-md border">
+              <iframe
+                title="Service area map"
+                src="https://www.google.com/maps/d/u/0/embed?mid=1RyiRpLlpJhTqVsfaweBlWBJbvLj1IQ0&ehbc=2E312F"
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                className="h-full w-full"
+              />
+            </div>
+            <noscript>
+              <a href="https://www.google.com/maps/d/u/0/embed?mid=1RyiRpLlpJhTqVsfaweBlWBJbvLj1IQ0&ehbc=2E312F">
+                View service area map
+              </a>
+            </noscript>
+          </section>
         </div>
       </article>
 
@@ -173,9 +201,8 @@ const Index: WithHeader = ({ images }) => {
             return (
               <figure
                 key={img.src}
-                className={`relative rounded-lg overflow-hidden bg-transparent ${
-                  landscape ? "col-span-2 row-span-1" : "col-span-2 row-span-2"
-                }`}
+                className={`relative rounded-lg overflow-hidden bg-transparent ${landscape ? "col-span-2 row-span-1" : "col-span-2 row-span-2"
+                  }`}
               >
                 <img
                   src={img.src}

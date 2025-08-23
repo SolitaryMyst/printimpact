@@ -1,9 +1,9 @@
 // src/components/Footer.tsx
 import Link from "next/link";
-import { COMPANY, buildMapEmbedSrc } from "@/data/company";
+import { COMPANY, } from "@/data/company";
 
 export default function Footer() {
-  const mapSrc = buildMapEmbedSrc();
+
   return (
     <footer className="mt-10 border-t border-neutral-200 bg-[#f8f8f8] text-[#333]">
       <div className="mx-auto max-w-7xl px-4 py-8 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
@@ -27,14 +27,14 @@ export default function Footer() {
               <a href={COMPANY.googleBusinessProfileUrl} target="_blank" rel="noopener" className="underline">
                 Google Business Profile
               </a>
-            </p>          
+            </p>
           )}
-            {COMPANY.googleBusinessReviewUrl && (
+          {COMPANY.googleBusinessReviewUrl && (
             <p className="mt-2">
               <a href={COMPANY.googleBusinessReviewUrl} target="_blank" rel="noopener" className="underline">
                 Leave a review
               </a>
-            </p>          
+            </p>
           )}
         </section>
 
@@ -48,15 +48,31 @@ export default function Footer() {
               </li>
             ))}
           </ul>
+
         </section>
 
         {/* Map */}
         <section className="lg:col-span-1">
-          <img src="/logos/greyicon.svg" alt="" className="h-full w-auto" />
+          <h3 className="sr-only">Service area</h3>
+          <div className="mt-2 aspect-[3/4] w-full overflow-hidden rounded-md border">
+            <iframe
+              title="Service area map"
+              src="https://www.google.com/maps/d/u/0/embed?mid=1RyiRpLlpJhTqVsfaweBlWBJbvLj1IQ0&ehbc=2E312F"
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              className="h-full w-full"
+            />
+          </div>
+          <noscript>
+            <a href="https://www.google.com/maps/d/u/0/embed?mid=1RyiRpLlpJhTqVsfaweBlWBJbvLj1IQ0&ehbc=2E312F">
+              View service area map
+            </a>
+          </noscript>
         </section>
       </div>
 
       <div className="border-t border-neutral-200 py-4 text-center text-sm">
+        <div><img src="/logos/greyicon.svg" alt="" className="h-8 w-auto mx-auto mb-2 block" /></div>
         © {new Date().getFullYear()} {COMPANY.legalName}
       </div>
     </footer>

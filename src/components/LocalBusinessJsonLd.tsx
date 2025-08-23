@@ -12,7 +12,7 @@ export default function LocalBusinessJsonLd() {
 
   const address = {
     "@type":"PostalAddress",
-    streetAddress: COMPANY.streetAddress,
+    
     addressLocality: COMPANY.addressLocality,
     addressRegion: COMPANY.addressRegion,
     postalCode: COMPANY.postalCode,
@@ -34,7 +34,10 @@ export default function LocalBusinessJsonLd() {
     sameAs: COMPANY.sameAs?.length ? COMPANY.sameAs : undefined,
     hasMap: COMPANY.googleBusinessProfileUrl,
     openingHoursSpecification: toOpeningHoursSpecification(),
-    areaServed: { "@type":"AdministrativeArea", name: "Perth, WA" },
+    areaServed: COMPANY.serviceAreas.map((name) => ({
+      "@type": "AdministrativeArea",
+      name,
+    })),
     geo: COMPANY.geo.latitude && COMPANY.geo.longitude
       ? { "@type":"GeoCoordinates", latitude: COMPANY.geo.latitude, longitude: COMPANY.geo.longitude }
       : undefined,
