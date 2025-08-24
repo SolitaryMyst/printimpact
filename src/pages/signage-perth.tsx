@@ -12,27 +12,27 @@ type Props = { images: SignageImage[] };
 type IconName = "shield" | "check" | "factory" | "bolt" | "map";
 const Icons: Record<IconName, (props: { className?: string }) => JSXReact.Element> = {
   shield: ({ className }) => (
-    <svg viewBox="0 0 24 24" aria-hidden="true" className={className}>
+    <svg viewBox="0 0 24 24" aria-hidden="true" fill="#0e7dc2" className={className}>
       <path d="M12 3l7 3v6c0 4.4-3 8.4-7 9-4-0.6-7-4.6-7-9V6l7-3z" />
     </svg>
   ),
   check: ({ className }) => (
-    <svg viewBox="0 0 24 24" aria-hidden="true" className={className}>
+    <svg viewBox="0 0 24 24" aria-hidden="true" fill="#0e7dc2" className={className}>
       <path d="M20 6l-11 11-5-5 2-2 3 3 9-9z" />
     </svg>
   ),
   factory: ({ className }) => (
-    <svg viewBox="0 0 24 24" aria-hidden="true" className={className}>
+    <svg viewBox="0 0 24 24" aria-hidden="true" fill="#0e7dc2" className={className}>
       <path d="M2 21h20v-8l-6 3v-3l-6 3V8L6 10V5H2v16z" />
     </svg>
   ),
   bolt: ({ className }) => (
-    <svg viewBox="0 0 24 24" aria-hidden="true" className={className}>
+    <svg viewBox="0 0 24 24" aria-hidden="true" fill="#0e7dc2" className={className}>
       <path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z" />
     </svg>
   ),
   map: ({ className }) => (
-    <svg viewBox="0 0 24 24" aria-hidden="true" className={className}>
+    <svg viewBox="0 0 24 24" aria-hidden="true" fill="#0e7dc2" className={className}>
       <path d="M15 6l-6 2-4-2v12l4 2 6-2 4 2V8l-4-2z" />
     </svg>
   ),
@@ -122,7 +122,7 @@ const Signage: WithHeader = ({ images }) => {
       {/* Descriptive content ABOVE the image grid */}
       <article className="mx-auto max-w-7xl px-4 pt-6">
         <p className="text-neutral-800 font-bold">
-          {INTRO} <a href="/contact" className="ml-3 underline"> Request a quote</a>.
+          {INTRO} <a href="/contact" className="ml-3 underline"> Get a quote</a>.
         </p>
 
         {/* Sections inline: 1 col (sm), 2 cols (md), 4 cols (lg) */}

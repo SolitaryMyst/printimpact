@@ -4,26 +4,20 @@ import { useRouter } from "next/router";
 
 type NavLink = { href: string; label: string };
 
-/**
- * Behavior:
- * - md and up: single inline row, no wrap, compact spacing so items fit.
- * - sm to md: inline row that wraps into two+ rows as needed (no slider).
- * - <sm: vertical list, small, no stretching (links keep intrinsic width).
- */
 export default function Header({ links }: { links: NavLink[] }) {
   const { pathname } = useRouter();
 
   return (
     <header
       className="
+        [-webkit-text-size-adjust:100%]
         w-full bg-[#333333] backdrop-blur-sm
         flex items-center gap-4 px-7 py-6
-        flex-col sm:flex-row
-        sm:flex-wrap md:flex-nowrap
+        flex-col sm:flex-row sm:flex-wrap md:flex-nowrap
         sm:sticky sm:top-0 sm:z-50
       "
     >
-      {/* Skip link for keyboard users */}
+      {/* Skip link */}
       <a
         href="#main"
         className="sr-only focus:not-sr-only focus:absolute focus:p-2 focus:bg-neutral-900 focus:text-white"
@@ -31,7 +25,7 @@ export default function Header({ links }: { links: NavLink[] }) {
         Skip to content
       </a>
 
-      {/* Logo links home; decorative image uses empty alt */}
+      {/* Logo */}
       <Link href="/" aria-label="Print Impact home" className="inline-flex">
         <img src="/logos/wrect.svg" alt="" className="h-12 w-auto" />
       </Link>
@@ -42,31 +36,33 @@ export default function Header({ links }: { links: NavLink[] }) {
         className="
           order-2 sm:order-none
           w-full sm:w-auto
-          flex
-          flex-col sm:flex-row
+          flex flex-row
+          flex-nowrap                /* 👈 tiny: force one line */
+          sm:flex-wrap               /* sm: allow wrap */
+          md:flex-nowrap             /* md+: force back to one line */
           gap-2 sm:gap-2 md:gap-3
-          ml-8
-          sm:flex-wrap md:flex-nowrap
+          ml-2 sm:ml-8
         "
       >
         {links.map((l) => {
-          const active = pathname === l.href || pathname.startsWith(l.href + "/");
+          const active =
+            pathname === l.href || pathname.startsWith(l.href + "/");
           return (
             <Link
               key={l.href}
               href={l.href}
               aria-current={active ? "page" : undefined}
               className={`
-                inline-flex items-center rounded-full border-[2px] transition
-                whitespace-nowrap
-                px-3 py-1 text-[0.9rem]
-                sm:px-2 md:px-3 lg:px-4
-                sm:text-[0.95rem]
-                md:text-[clamp(0.95rem,1vw,1.05rem)]
+                inline-flex items-center justify-center rounded-full border-[2px] transition
+                overflow-visible whitespace-nowrap
+                flex-shrink-0
+                px-3 py-[6px] leading-[1.3] text-[clamp(0.8rem,3.5vw,0.9rem)]
+                sm:px-3 sm:text-[0.95rem]
+                md:px-4 md:text-[clamp(0.95rem,1vw,1.05rem)]
+                lg:px-5
                 ${active
                   ? "border-[#0e7dc2] bg-[#444444] text-white"
-                  : "border-[#f8f8f8] text-[#f8f8f8] bg-[#333333] hover:border-[#0e7dc2] hover:text-[#333333] hover:bg-white"
-                }
+                  : "border-[#f8f8f8] text-[#f8f8f8] bg-[#333333] hover:border-[#0e7dc2] hover:text-[#333333] hover:bg-white"}
               `}
             >
               {l.label}
@@ -76,7 +72,7 @@ export default function Header({ links }: { links: NavLink[] }) {
       </nav>
 
       {/* CTA */}
-      <div className="sm:ml-auto mr-4">
+      <div className="sm:ml-auto mr-4 flex-shrink-0 max-sm:order-3 max-sm:w-full">
         <Link
           href="/contact"
           className="
@@ -84,6 +80,7 @@ export default function Header({ links }: { links: NavLink[] }) {
             text-[#f8f8f8] bg-[#0e7dc2]
             text-lg sm:text-xl md:text-2xl border-2 border-transparent
             hover:border-white
+            max-sm:w-full max-sm:text-center
           "
         >
           Contact
