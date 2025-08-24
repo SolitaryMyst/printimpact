@@ -41,7 +41,7 @@ export default function Header({ links }: { links: NavLink[] }) {
           sm:flex-wrap               /* sm: allow wrap */
           md:flex-nowrap             /* md+: force back to one line */
           gap-2 sm:gap-2 md:gap-3
-          ml-2 sm:ml-8
+          ml-0 sm:ml-8
         "
       >
         {links.map((l) => {
@@ -56,7 +56,7 @@ export default function Header({ links }: { links: NavLink[] }) {
                 inline-flex items-center justify-center rounded-full border-[2px] transition
                 overflow-visible whitespace-nowrap
                 flex-shrink-0
-                px-3 py-[6px] leading-[1.3] text-[clamp(0.8rem,3.5vw,0.9rem)]
+                px-[0.35rem] py-[4px] leading-[1.3] text-[clamp(0.8rem,3.5vw,0.9rem)]
                 sm:px-3 sm:text-[0.95rem]
                 md:px-4 md:text-[clamp(0.95rem,1vw,1.05rem)]
                 lg:px-5
