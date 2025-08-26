@@ -1,20 +1,46 @@
+version: "3.9"
 
 services:
   web:
     build: .
-    env_file: .env.local
     image: new-printimpact-web
-    environment: [ "PORT=3000" ]
-    expose: [ "3000" ]
+    env_file: .env.local
+    environment:
+      - PORT=3000
+    expose:
+      - "3000"
     restart: unless-stopped
+    healthcheck:
+      # Requires wget in the image (present on most *-alpine). Swap to curl if you prefer.
+      test: ["CMD-SHELL", "wget -qO- http://localhost:3000/ >/dev/null 2>&1 || exit 1"]
+      interval: 10s
+      timeout: 3s
+      retries: 15
+      start_period: 20s
+
   proxy:
     image: caddy:2-alpine
     container_name: new-printimpact-proxy
-    ports: [ "80:80", "443:443" ]
+    init: true
+    ports:
+      - "80:80"
+      - "443:443"
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile:ro
       - caddy_data:/data
       - caddy_config:/config
-    depends_on: [ web ]
     restart: unless-stopped
-volumes: { caddy_data: {}, caddy_config: {} }
+    depends_on:
+      web:
+        condition: service_healthy
+    healthcheck:
+      # Caddy admin API inside the container
+      test: ["CMD-SHELL", "wget -qO- http://localhost:2019/config >/dev/null 2>&1 || exit 1"]
+      interval: 10s
+      timeout: 3s
+      retries: 6
+      start_period: 10s
+
+volumes:
+  caddy_data: {}
+  caddy_config: {}

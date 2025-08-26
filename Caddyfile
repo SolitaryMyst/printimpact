@@ -1,4 +1,10 @@
 printimpact.com.au {
   encode zstd gzip
-  reverse_proxy web:3000
+  reverse_proxy web:3000 {
+    health_uri /
+    health_interval 10s
+    health_timeout 2s
+    try_duration 30s
+    fail_duration 5s
+  }
 }
