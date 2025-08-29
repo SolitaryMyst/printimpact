@@ -57,7 +57,7 @@ const SECTIONS: Section[] = [
       {
         icon: "factory",
         text:
-          "With Compliments slips and memo sheets matched to your letterhead stock and colour. Packed flat, ream-wrapped, and labelled for easy office distribution.",
+          "With Compliments slips and memo sheets matched to your letterhead stock and colour.",
       },
     ],
   },
@@ -67,12 +67,12 @@ const SECTIONS: Section[] = [
       {
         icon: "bolt",
         text:
-          "Standard and luxury cards with matte, satin, or soft touch. Spot UV, foils, and rounded corners available. Multi-name runs and staff onboarding packs supported.",
+          "Standard and luxury cards with matte, satin, or soft touch. Spot UV, foils, and rounded corners. Multi-name runs and staff onboarding packs.",
       },
       {
         icon: "check",
         text:
-          "Stationery kits: folders, notepads, compendiums, and presentation covers. Print-ready templates ensure consistent margins and typography.",
+          "Stationery: folders, notepads, and presentation covers.",
       },
     ],
   },
@@ -84,11 +84,7 @@ const SECTIONS: Section[] = [
         text:
           "DL, C5, C4 with or without windows. Secretive and security patterns. Peel-and-seal or lick-and-stick. Return address and Permit imprint options.",
       },
-      {
-        icon: "factory",
-        text:
-          "Bulk addressing and barcoding supported. Match-inserts for letters and brochures. Cartoned and palletised for staged mailouts across Perth.",
-      },
+      
     ],
   },
   {
@@ -99,14 +95,48 @@ const SECTIONS: Section[] = [
         text:
           "Branded pens, notebooks, drinkware, lanyards, USBs, tech accessories, and desk items. Durable marks with pad, screen, or laser engraving.",
       },
-      {
-        icon: "check",
-        text:
-          "Wearables including tees, polos, hoodies, caps, and hi-vis. Embroidery or print to Pantone targets. Size runs packed by staff list on request.",
-      },
+    
     ],
   },
 ];
+
+/** Mosaic helpers */
+function LeadText({ section }: { section?: Section }) {
+  if (!section) return null;
+  return (
+    <section className="space-y-3">
+      <h2 className="text-2xl font-semibold">{section.title}</h2>
+      <ul className="space-y-2">
+        {section.items.map(({ text, icon }, j) => {
+          const Icon = icon ? Icons[icon] : null;
+          return (
+            <li key={j} className="flex items-start gap-2">
+              {Icon ? <Icon className="h-5 w-5 mt-1 shrink-0" /> : null}
+              <p className="text-neutral-800">{text}</p>
+            </li>
+          );
+        })}
+      </ul>
+    </section>
+  );
+}
+
+function LeadPic({ img }: { img?: CorporateImage }) {
+  if (!img) return null;
+  return (
+    <figure className="relative overflow-hidden rounded-md aspect-[4/3]">
+      <img
+        src={img.src}
+        alt={img.title}
+        width={img.width}
+        height={img.height}
+        loading="lazy"
+        className="absolute inset-0 h-full w-full object-contain"
+      />
+    </figure>
+  );
+}
+
 
 /** Utils */
 function slugify(s: string) {
@@ -119,44 +149,25 @@ type WithHeader = NextPage<Props> & { pageHeader?: PageHeaderConfig };
 const CorporatePrintPerth: WithHeader = ({ images }) => {
   return (
     <main id="main">
-      {/* Descriptive content ABOVE the image grid */}
       <article className="mx-auto max-w-7xl px-4 pt-6">
         <p className="text-neutral-800 font-bold">
-          {INTRO} <a href="/contact" className="ml-3 underline"> Get a quote</a>.
+          {INTRO} <a href="/contact" className="ml-3 underline">Get a quote</a>.
         </p>
 
-        {/* Sections inline: 1 col (sm), 2 cols (md), 4 cols (lg) */}
+        {/* Lead mosaic: Row1 T,T,P,P  Row2 T,T,P,P */}
         <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {SECTIONS.map(({ title, items }) => {
-            const base = slugify(title);
-            // Anchor fix: #<base> with separate heading id
-            const sectionId = base;
-            const headingId = `${base}-h`;
-
-            return (
-              <section key={sectionId} id={sectionId} aria-labelledby={headingId} className="space-y-4">
-                <h2 id={headingId} className="text-2xl font-semibold">
-                  {title}
-                </h2>
-
-                <ul className="space-y-3">
-                  {items.map(({ text, icon }, i) => {
-                    const Icon = icon ? Icons[icon] : null;
-                    return (
-                      <li key={i} className="flex items-start gap-3">
-                        {Icon ? <Icon className="h-5 w-5 mt-1 shrink-0" /> : null}
-                        <p className="text-neutral-800">{text}</p>
-                      </li>
-                    );
-                  })}
-                </ul>
-              </section>
-            );
-          })}
+          <LeadText section={SECTIONS[0]} />
+          <LeadText section={SECTIONS[1]} />
+          <LeadPic img={images[0]} />
+          <LeadPic img={images[1]} />
+          <LeadText section={SECTIONS[2]} />
+          <LeadText section={SECTIONS[3]} />
+          <LeadPic img={images[2]} />
+          <LeadPic img={images[3]} />
         </div>
       </article>
 
-      {/* Image grid BELOW the descriptive content */}
+      {/* Image grid resumes from the 5th image */}
       <div className="mx-auto px-4 mt-8">
         <div
           className="
@@ -167,7 +178,7 @@ const CorporatePrintPerth: WithHeader = ({ images }) => {
             justify-center
           "
         >
-          {images.map((img) => {
+          {images.slice(4).map((img) => {
             const landscape = img.width >= img.height;
             return (
               <figure

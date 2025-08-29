@@ -54,11 +54,7 @@ const SECTIONS: Section[] = [
         text:
           "Compliant safety signage for warehouses, healthcare, education, and construction. Mandatory, prohibition, hazard, emergency, and wayfinding sets in reflective, laminated, or aluminium substrates.",
       },
-      {
-        icon: "map",
-        text:
-          "Artwork aligned to site plans and risk registers. Anti-graffiti laminate and UV-stable inks. Perth metro delivery and installation on request.",
-      },
+    
     ],
   },
   {
@@ -72,7 +68,7 @@ const SECTIONS: Section[] = [
       {
         icon: "check",
         text:
-          "ACM panels, Routered letters & panels, frost films, and removable campaigns. Maintenance and change-outs available.",
+          "ACM panels, Routered letters & panels, frost films, and removable campaigns.",
       },
     ],
   },
@@ -108,6 +104,43 @@ const SECTIONS: Section[] = [
   },
 ];
 
+/** Mosaic helpers */
+function LeadText({ section }: { section?: Section }) {
+  if (!section) return null;
+  return (
+    <section className="space-y-3">
+      <h2 className="text-2xl font-semibold">{section.title}</h2>
+      <ul className="space-y-2">
+        {section.items.map(({ text, icon }, j) => {
+          const Icon = icon ? Icons[icon] : null;
+          return (
+            <li key={j} className="flex items-start gap-2">
+              {Icon ? <Icon className="h-5 w-5 mt-1 shrink-0" /> : null}
+              <p className="text-neutral-800">{text}</p>
+            </li>
+          );
+        })}
+      </ul>
+    </section>
+  );
+}
+
+function LeadPic({ img }: { img?: SignageImage }) {
+  if (!img) return null;
+  return (
+    <figure className="relative overflow-hidden rounded-md  aspect-[4/3]">
+      <img
+        src={img.src}
+        alt={img.title}
+        width={img.width}
+        height={img.height}
+        loading="lazy"
+        className="absolute inset-0 h-full w-full object-contain"
+      />
+    </figure>
+  );
+}
+
 /** Utils */
 function slugify(s: string) {
   return s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
@@ -116,46 +149,28 @@ function slugify(s: string) {
 /** Page */
 type WithHeader = NextPage<Props> & { pageHeader?: PageHeaderConfig };
 
-const Signage: WithHeader = ({ images }) => {
+const SignagePerth: WithHeader = ({ images }) => {
   return (
     <main id="main">
-      {/* Descriptive content ABOVE the image grid */}
       <article className="mx-auto max-w-7xl px-4 pt-6">
         <p className="text-neutral-800 font-bold">
-          {INTRO} <a href="/contact" className="ml-3 underline"> Get a quote</a>.
+          {INTRO} <a href="/contact" className="ml-3 underline">Get a quote</a>.
         </p>
 
-        {/* Sections inline: 1 col (sm), 2 cols (md), 4 cols (lg) */}
+        {/* Lead mosaic: Row1 T,T,P,P  Row2 T,T,P,P */}
         <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {SECTIONS.map(({ title, items }) => {
-            const base = slugify(title);
-            // Anchor fix: #<base> with separate heading id
-            const sectionId = base;
-            const headingId = `${base}-h`;
-
-            return (
-              <section key={sectionId} id={sectionId} aria-labelledby={headingId} className="space-y-4">
-                <h2 id={headingId} className="text-2xl font-semibold">{title}</h2>
-
-                {/* Keep items vertical inside each section */}
-                <ul className="space-y-3">
-                  {items.map(({ text, icon }, i) => {
-                    const Icon = icon ? Icons[icon] : null;
-                    return (
-                      <li key={i} className="flex items-start gap-3">
-                        {Icon ? <Icon className="h-5 w-5 mt-1 shrink-0" /> : null}
-                        <p className="text-neutral-800">{text}</p>
-                      </li>
-                    );
-                  })}
-                </ul>
-              </section>
-            );
-          })}
+          <LeadText section={SECTIONS[0]} />
+          <LeadText section={SECTIONS[1]} />
+          <LeadPic img={images[0]} />
+          <LeadPic img={images[1]} />
+          <LeadText section={SECTIONS[2]} />
+          <LeadText section={SECTIONS[3]} />
+          <LeadPic img={images[2]} />
+          <LeadPic img={images[3]} />
         </div>
       </article>
 
-      {/* Image grid BELOW the descriptive content */}
+      {/* Image grid resumes from the 5th image */}
       <div className="mx-auto px-4 mt-8">
         <div
           className="
@@ -166,7 +181,7 @@ const Signage: WithHeader = ({ images }) => {
             justify-center
           "
         >
-          {images.map((img) => {
+          {images.slice(4).map((img) => {
             const landscape = img.width >= img.height;
             return (
               <figure
@@ -193,7 +208,7 @@ const Signage: WithHeader = ({ images }) => {
 };
 
 /** Header config consumed by <PageHeader /> */
-Signage.pageHeader = {
+SignagePerth.pageHeader = {
   title: "Signage & Production Safety",
   items: ["WHS Signs", "Brand Signage", "Custom whiteboards", "Procedure & Safety"],
   description:
@@ -202,7 +217,7 @@ Signage.pageHeader = {
   emitStructuredData: true,
 };
 
-export default Signage;
+export default SignagePerth;
 
 /** Static props */
 export const getStaticProps: GetStaticProps<Props> = async () => {
