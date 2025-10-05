@@ -1,0 +1,14 @@
+services:
+  changeip-ddns:
+    build: .
+    image: local/changeip-ddns:latest
+    container_name: changeip-ddns
+    restart: unless-stopped
+    environment:
+      CHANGEIP_USER: ${CHANGEIP_USER}
+      CHANGEIP_PASS: ${CHANGEIP_PASS}
+      CHANGEIP_HOSTNAMES: ${CHANGEIP_HOSTNAMES}
+      # Optional:
+      # INTERVAL_SECONDS: ${INTERVAL_SECONDS:-300}
+      # CHANGEIP_BASE_URL: https://nic.changeip.com/nic/update
+      # PUBLIC_IP_ENDPOINTS: https://api.ipify.org,https://ifconfig.me

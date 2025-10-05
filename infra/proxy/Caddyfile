@@ -1,0 +1,7 @@
+printimpact.com.au {
+  reverse_proxy printimpact-web:3000
+}
+
+senisko.com {
+  reverse_proxy senisko-web:3001
+}
